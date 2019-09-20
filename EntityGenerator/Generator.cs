@@ -75,9 +75,45 @@ namespace EntityGenerator
                 replaced = replaced + text[i] + "\n";
             }
             replaced = replaced.Replace("#outputType#", outputType).Replace("#targetFramework#", targetFramework);
-            Console.WriteLine(replaced);
 
             writeOut(replaced, namespaceName, languageExtension + "proj");
+        }
+
+        public static void programGenerator(string fileName, string languageExtension, string namespaceName, string classContextName, Dictionary<string, string> values)
+        {
+            string[] text = readIn(fileName, languageExtension);
+            string replaced = "";
+            string newLine = "";
+
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (text[i].Equals("#values#"))
+                {
+                    foreach(var v in values)
+                    {
+                        newLine = newLine + text[i + 1].Replace("#valueName#", v.Value).Replace("#className#", v.Key) + "\n";
+                    }
+                    replaced = replaced + newLine;
+                    newLine = "";
+
+                    i = i + 2;
+                }
+                else if (text[i].Equals("#adds#"))
+                {
+                    foreach (var v in values)
+                    {
+                        newLine = newLine + text[i + 1].Replace("#valueName#", v.Value).Replace("#className#", v.Key) + "\n";
+                    }
+                    replaced = replaced + newLine;
+                    newLine = "";
+
+                    i = i + 2;
+                }
+                replaced = replaced + text[i] + "\n";
+            }
+            replaced = replaced.Replace("#namespaceName#", namespaceName).Replace("#classContextName#", classContextName);
+
+            writeOut(replaced, "SaveTest", languageExtension);
         }
 
         public static string[] readIn(string fileName, string languageExtension)
