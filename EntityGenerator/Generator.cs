@@ -155,6 +155,32 @@ namespace EntityGenerator
                     i = i + 14;
                     y = 0;
                 }
+                else if (text[i].Equals("#exists#"))
+                {
+                    foreach (Type c in classes)
+                    {
+                        //get the properties and its type
+                        Dictionary<string, string> props = GenerateHelperMethods.getProps(c);
+
+                        foreach (var prop in props)
+                        {
+                            for (int x = 1; x < 22; x++)
+                            {
+                                newLine = newLine + text[i + x] + "\n";
+                            }
+                            newLine = newLine.Replace("#className#", c.Name).Replace("#propName#", prop.Key)
+                                             .Replace("#PropName#", prop.Key.Substring(0, 1).ToUpper() + prop.Key.Substring(1))
+                                             .Replace("#type#", prop.Value).Replace("#valueName#", c.Name.Substring(0, 1).ToLower())
+                                             .Replace("#classContextName#", classContextName.Name).Replace("#contextPropName#", conProps[y].Name);
+                        }
+                        y = y + 1;
+                    }
+                    replaced = replaced + newLine;
+                    newLine = "";
+
+                    i = i + 21;
+                    y = 0;
+                }
                 else if (text[i].Equals("#findListBy#"))
                 {
                     foreach (Type c in classes)

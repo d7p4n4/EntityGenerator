@@ -11,7 +11,7 @@ namespace #namespaceName#
 #findFirstBy#
         public static #className# findFirstBy#PropName#(#type# #propName#)
         {
-            #className# #valueName# = new #className#();
+            #className# #valueName# = null;
 
             using (var ctx = new #classContextName#())
             {
@@ -38,6 +38,29 @@ namespace #namespaceName#
             }
             return #valueName#;
         }
+
+#exists#
+	public Boolean existsIn#className#By#PropName#(#type# #propName#)
+	{
+		#className# #valueName# = null;
+
+            using (var ctx = new #classContextName#())
+            {
+                var query = ctx.#contextPropName#
+                                .Where(s => s.#propName# == #propName#)
+                                .FirstOrDefault<#className#>();
+
+                #valueName# = query;
+            }
+                if(#valueName# != null)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 #deleteById#
         public static void deleteById(#type# #propName#)
