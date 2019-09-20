@@ -184,14 +184,61 @@ namespace EntityGenerator
                     i = i + 13;
                     y = 0;
                 }
+                else if (text[i].Equals("#deleteById#"))
+                {
+                    foreach (Type c in classes)
+                    {
+                        //get the properties and its type
+                        Dictionary<string, string> props = GenerateHelperMethods.getProps(c);
+
+                        foreach (var prop in props)
+                        {
+                            if (prop.Key.Equals("id") || prop.Key.Equals("Id") || prop.Key.Equals("ID"))
+                            {
+                                for (int x = 1; x < 11; x++)
+                                {
+                                    newLine = newLine + text[i + x] + "\n";
+                                }
+                                newLine = newLine.Replace("#className#", c.Name).Replace("#propName#", prop.Key)
+                                                 .Replace("#PropName#", prop.Key.Substring(0, 1).ToUpper() + prop.Key.Substring(1))
+                                                 .Replace("#type#", prop.Value).Replace("#valueName#", c.Name.Substring(0, 1).ToLower())
+                                                 .Replace("#classContextName#", classContextName.Name).Replace("#contextPropName#", conProps[y].Name);
+                            }
+                            y = y + 1;
+                        }
+                    }
+                    replaced = replaced + newLine;
+                    newLine = "";
+
+                    i = i + 10;
+                    y = 0;
+                }
+                else if (text[i].Equals("#adds#"))
+                {
+                    foreach (Type c in classes)
+                    {
+                        for (int x = 1; x < 11; x++)
+                        {
+                            newLine = newLine + text[i + x] + "\n";
+                        }
+                        newLine = newLine.Replace("#className#", c.Name).Replace("#valueName#", c.Name.Substring(0, 1).ToLower())
+                                            .Replace("#classContextName#", classContextName.Name).Replace("#contextPropName#", conProps[y].Name);
+                        
+                        y = y + 1;
+                    }
+                    replaced = replaced + newLine;
+                    newLine = "";
+
+                    i = i + 10;
+                    y = 0;
+                }
                 else
                 {
                     replaced = replaced + text[i] + "\n";
                 }
             }
 
-                replaced = replaced.Replace("#namespaceName#", namespaceName);
-                Console.WriteLine(replaced);
+            replaced = replaced.Replace("#namespaceName#", namespaceName);
 
             writeOut(replaced, "EntityMethods", languageExtension);
         }
