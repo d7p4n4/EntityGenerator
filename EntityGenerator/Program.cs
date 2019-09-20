@@ -25,10 +25,12 @@ namespace EntityGenerator
 
             Dictionary<string, string> extensions = new Dictionary<string, string>();
             extensions.Add("EntityFramework", "6.2.0");
-
+            
             Generator.contextGenerate(list, "Person", "PersonDb", "EntityGenerator", "Template", "cs");
             Generator.extensionGenerator("EntityGenerator", "TemplateEntityExtensionNETCore", "cs", "Exe", "netcoreapp2.2", folders, extensions);
-            Generator.programGenerator("TemplateSaveProgram", "cs", "EntityGenerator", "PersonContext", values);
+            //Generator.programGenerator("TemplateSaveProgram", "cs", "EntityGenerator", "PersonContext", values);
+
+            Generator.generateEntityMethods("TemplateEntityMethods", "cs", "EntityGenerator", typeof(PersonContext), list);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace EntityGenerator
         [GUID("ff10d0f3-23a1-43b1-a623-45d8633ad3c6")]
         public Boolean gender { get; set; }
         [GUID("d40c9fb2-7d1b-4c03-b8fb-e95696f86c96")]
-        public List<String> list { get; set; }
+        public IQueryable<String> list { get; set; }
 
         public PersonBase() { }
 
@@ -51,7 +51,7 @@ namespace EntityGenerator
             return gender;
         }
 
-        public List<String> getList()
+        public IQueryable<String> getList()
         {
             return list;
         }
@@ -82,7 +82,7 @@ namespace EntityGenerator
             gender = newValue;
         }
 
-        public void setList(List<String> newValue)
+        public void setList(IQueryable<String> newValue)
         {
             list = newValue;
         }

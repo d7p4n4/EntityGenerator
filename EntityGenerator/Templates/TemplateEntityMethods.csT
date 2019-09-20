@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+
+namespace #namespaceName#
+{
+    class EntityMethods
+    {
+#findFirstBy#
+        public static #className# findFirstBy#PropName#(#type# #propName#)
+        {
+            #className# #valueName# = new #className#();
+
+            using (var ctx = new #classContextName#())
+            {
+                var query = ctx.#contextPropName#
+                                .Where(s => s.#propName# == #propName#)
+                                .FirstOrDefault<#className#>();
+
+                #valueName# = query;
+            }
+            return #valueName#;
+        }
+
+#findListBy#
+        public static IQueryable<#className#> findListBy#PropName#(#type# #propName#)
+        {
+            IQueryable<#className#> #valueName#;
+
+            using (var ctx = new #classContextName#())
+            {
+                var query = ctx.#contextPropName#
+                                .Where(s => s.#propName# == #propName#);
+
+                #valueName# = query;
+            }
+            return #valueName#;
+        }
+
+    }
+}
