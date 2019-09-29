@@ -8,11 +8,12 @@ namespace EntityGenerator
         static void Main(string[] args)
         {
             List<Type> list = new List<Type>();
-            list.Add(typeof(PersonBase));
+            list.Add(typeof(TestClass));
 
             List<string> folders = new List<string>();
             folders.Add("Generated");
             folders.Add("Templates");
+            folders.Add("SourceClass");
 
             Dictionary<string, string> values = new Dictionary<string, string>();
             foreach(var l in list)
@@ -26,11 +27,11 @@ namespace EntityGenerator
             Dictionary<string, string> extensions = new Dictionary<string, string>();
             extensions.Add("EntityFramework", "6.2.0");
             
-            Generator.contextGenerate(list, "Person", "PersonDb", "EntityGenerator", "Template", "cs");
+            Generator.contextGenerate(list, "TestClass", "TestDb", "EntityGenerator", "Template", "cs");
             Generator.extensionGenerator("EntityGenerator", "TemplateEntityExtensionNETCore", "cs", "Exe", "netcoreapp2.2", folders, extensions);
-            //Generator.programGenerator("TemplateSaveProgram", "cs", "EntityGenerator", "PersonContext", values);
+            Generator.programGenerator("TemplateSaveProgram", "cs", "EntityGenerator", "TestClassAontext", values);
 
-            Generator.generateEntityMethods("TemplateEntityMethods", "cs", "EntityGenerator", typeof(PersonContext), list);
+            Generator.generateEntityMethods("TemplateEntityMethods", "cs", "EntityGenerator", typeof(TestClassContext), list);
         }
     }
 }
