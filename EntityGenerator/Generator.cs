@@ -283,7 +283,7 @@ namespace EntityGenerator
 
         public static void writeOut(string text, string fileName, string languageExtension)
         {
-            System.IO.File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Generated\\" + fileName + "." + languageExtension), text);
+            System.IO.File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.Parent.FullName + "\\GeneratedClasses\\GeneratedClasses\\" + fileName + "." + languageExtension), text);
 
         }
     }
